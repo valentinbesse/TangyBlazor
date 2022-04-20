@@ -45,8 +45,6 @@
         await OnFavoriteUpdated.InvokeAsync((bool)e.Value);
     }
 
-    []
-
     private async Task LastSelectedProduct(MouseEventArgs e, string name)
     {
         await OnLastSelectedProductChanged.InvokeAsync(name);
