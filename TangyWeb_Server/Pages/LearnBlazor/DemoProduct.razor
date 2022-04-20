@@ -2,12 +2,14 @@
 
 <h2 class="text-primary">DemoProduct</h2>
 <p>Favourites Total : @SelectedFavouriteCount</p>
+<p>Last Selected Product : @LastSelectedProductName</p>
 <div class="border p-2 mt-2" style="background-color:azure">
     <div class="row">
         @foreach (var prod in Products)
         {
-            <_IndividualProduct Prod="prod" OnFavoriteUpdated="FavouriteCountUpdate">
-
+            <_IndividualProduct Prod="prod" OnFavoriteUpdated="FavouriteCountUpdate" OnLastSelectedProductChanged="LastSelectedProductUpdate">
+                <FirstFragment>#1</FirstFragment>
+                <SecondFragment>#2</SecondFragment>
             </_IndividualProduct>
         }
     </div>
@@ -16,6 +18,7 @@
 @code {
     List<Demo_Product> Products = new();
     private int SelectedFavouriteCount { get; set; } = 0;
+    private string LastSelectedProductName { get; set; } = string.Empty;
 
     protected override void OnInitialized()
     {
@@ -58,5 +61,10 @@
         {
             SelectedFavouriteCount--;
         }
+    }
+
+    protected void LastSelectedProductUpdate(string lastSelectedProductName)
+    {
+            LastSelectedProductName = lastSelectedProductName;
     }
 }

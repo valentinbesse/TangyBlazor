@@ -1,9 +1,10 @@
 ﻿@if (Prod is not null)
 {
-    <div class="bg-light border m-1 col-5">
+    <div class="bg-light border m-1 col-5" @onclick="(args)=>LastSelectedProduct(args,Prod.Name)">
         <h4 class="text-secondary">Product - @Prod.Id</h4>
         <input type="checkbox" @onchange="FavoriteUpdated"/> Add to Favorite <br />
         Name - @Prod.Name<br />
+        <p>RF from Parent - @FirstFragment @SecondFragment</p><br />
         Show Properties:
         <input type="checkbox" @bind-value="Prod.IsActive" checked="@(Prod.IsActive?"checked":null)" />
 
@@ -30,8 +31,24 @@
     [Parameter]
     public EventCallback<bool> OnFavoriteUpdated { get; set; }
 
+    [Parameter]
+    public EventCallback<string> OnLastSelectedProductChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment FirstFragment { get; set; }
+
+    [Parameter]
+    public RenderFragment SecondFragment { get; set; }
+
     private async Task FavoriteUpdated(ChangeEventArgs e)
     {
         await OnFavoriteUpdated.InvokeAsync((bool)e.Value);
+    }
+
+    []
+
+    private async Task LastSelectedProduct(MouseEventArgs e, string name)
+    {
+        await OnLastSelectedProductChanged.InvokeAsync(name);
     }
 }
