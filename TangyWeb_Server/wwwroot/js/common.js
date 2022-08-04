@@ -15,3 +15,11 @@ window.ShowSwal = (type, message) => {
         Swal.fire('Something went wrong!', message, 'error');
     }
 }
+
+function ShowDeleteConfirmationModal() {
+    $('#deleteConfirmationModal').modal('show');
+}
+
+function HideDeleteConfirmationModal() {
+    $('#deleteConfirmationModal').modal('hide');
+}
