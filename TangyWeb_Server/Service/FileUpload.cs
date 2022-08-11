@@ -5,8 +5,13 @@ namespace TangyWeb_Server.Service
 {
     public class FileUpload : IFileUpload
     {
-        
 
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public FileUpload(IWebHostEnvironment webHostEnvironment)
+        {
+            _webHostEnvironment = webHostEnvironment;
+        }
 
         public Task<bool> DeleteFile(string filePath)
         {
@@ -15,7 +20,9 @@ namespace TangyWeb_Server.Service
 
         public Task<string> UploadFile(IBrowserFile file)
         {
-            throw new NotImplementedException();
+            FileInfo fileInfo = new(file.Name);
+            var fileName = Guid.NewGuid().ToString()+fileInfo.Extension;
+            var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\images\\product";
         }
     }
 }
